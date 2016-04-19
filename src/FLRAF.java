@@ -6,7 +6,7 @@ import java.io.Serializable;
  * John Sandfort
  * CSC 365
  * Fall 2012
- */ 
+ */
 
 public class FLRAF extends RandomAccessFile implements Serializable {
     private int blockSize;
@@ -26,6 +26,5 @@ public class FLRAF extends RandomAccessFile implements Serializable {
     public void write(byte[] b, int blockNumber) throws IOException {
         seek(blockNumber*blockSize);
         write(b);
-        return;
     }
 }
