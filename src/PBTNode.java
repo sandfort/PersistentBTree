@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * John Sandfort
@@ -7,15 +8,15 @@ import java.util.ArrayList;
  */
 
 class PBTNode {
-    ArrayList<String> keys;
-    ArrayList<Integer> links;
-    int order;
-    Integer index;
-    PBTCache cache;
+    public List<String> keys;
+    public List<Integer> links;
+    private int order;
+    public Integer index;
+    private PBTCache cache;
 
     PBTNode(int m, PBTCache cache) {
-        keys = new ArrayList<String>(m-1);
-        links = new ArrayList<Integer>(m);
+        keys = new ArrayList<>(m-1);
+        links = new ArrayList<>(m);
         order = m;
         this.cache = cache;
         index = new Integer(-1);
@@ -66,7 +67,7 @@ class PBTNode {
         return b;
     }
 
-    void split(int i) {
+    private void split(int i) {
         PBTNode n = cache.read(links.get(i));
         PBTNode x = new PBTNode(order, cache);
         x.index = cache.getNextIndex();
@@ -99,7 +100,7 @@ class PBTNode {
         //cache.write(this);
     }
 
-    boolean remove(String s) {
+    public boolean remove(String s) {
         if ( leaf() ) {
             boolean b = keys.remove(s);
             //if ( b )
@@ -151,15 +152,15 @@ class PBTNode {
         return b;
     }
 
-    boolean underflow() {
+    private boolean underflow() {
         return keys.size() < ((order/2)-1);
     }
 
-    boolean leaf() {
+    public boolean leaf() {
         return links.isEmpty();
     }
 
-    void rebalance(int i) {
+    private void rebalance(int i) {
         // i: the index of the deficient node
         // reading nodes from the cache...
         PBTNode x;
@@ -255,7 +256,7 @@ class PBTNode {
         //cache.write(this);
     }
 
-    String stealMax() {
+    private String stealMax() {
         String s;
         if ( leaf() ) {
             s = keys.remove(keys.size()-1);
@@ -268,7 +269,7 @@ class PBTNode {
         return s;
     }
 
-    String stealMin() {
+    private String stealMin() {
         String s;
         if ( leaf() ) {
             s = keys.remove(0);
@@ -281,7 +282,7 @@ class PBTNode {
         return s;
     }
 
-    void fixMax() {
+    private void fixMax() {
         if ( leaf() )
             return;
         PBTNode n = cache.read(links.get(links.size()-1));
@@ -293,7 +294,7 @@ class PBTNode {
         }
     }
 
-    void fixMin() {
+    private void fixMin() {
         if ( leaf() )
             return;
         PBTNode n = cache.read(links.get(0));
@@ -305,21 +306,21 @@ class PBTNode {
         }
     }
 
-    String stealPredecessor(int i) {
+    private String stealPredecessor(int i) {
         PBTNode n = cache.read(links.get(i));
         String s = n.stealMax();
         cache.write(n);
         return s;
     }
 
-    String stealSuccessor(int i) {
+    private String stealSuccessor(int i) {
         PBTNode n = cache.read(links.get(i+1));
         String s = n.stealMin();
         cache.write(n);
         return s;
     }
 
-    void display(int offset) {
+    public void display(int offset) {
         for ( String s : keys )
             System.out.print(s + " ");
         System.out.print("\n");

@@ -11,8 +11,7 @@ import java.nio.ByteBuffer;
 
 public class PBTCache {
     private int order;
-    private int blockSize;
-    private int numberOfBlocks;
+    public int numberOfBlocks;
     LinkedBlockingQueue<Integer> freeBlocks;
     private FLRAF f;
 
@@ -26,7 +25,7 @@ public class PBTCache {
 
     PBTCache(int order, String file) throws IOException {
         this.order = order;
-        this.blockSize = ((order-1)*32)+(order*4);
+        int blockSize = ((order-1)*32)+(order*4);
         this.numberOfBlocks = 0;
         this.freeBlocks = new LinkedBlockingQueue<Integer>();
         this.f = new FLRAF(blockSize, file);
