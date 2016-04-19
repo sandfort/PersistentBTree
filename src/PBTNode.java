@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * John Sandfort
  * CSC 365
  * Fall 2012
- */ 
+ */
 
 class PBTNode {
     ArrayList<String> keys;
@@ -162,7 +162,9 @@ class PBTNode {
     void rebalance(int i) {
         // i: the index of the deficient node
         // reading nodes from the cache...
-        PBTNode x, y, z;
+        PBTNode x;
+        PBTNode y;
+        PBTNode z;
         if ( i > 0 )
             x = cache.read(links.get(i-1));
         else x = null;
