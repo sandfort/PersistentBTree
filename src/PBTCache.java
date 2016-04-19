@@ -7,17 +7,17 @@ import java.nio.ByteBuffer;
  * John Sandfort
  * CSC 365
  * Fall 2012
- */ 
+ */
 
 public class PBTCache {
-    int order;
-    int blockSize;
-    int numberOfBlocks;
+    private int order;
+    private int blockSize;
+    private int numberOfBlocks;
     LinkedBlockingQueue<Integer> freeBlocks;
-    FLRAF f;
+    private FLRAF f;
 
     PBTNode[] nodes;
-    boolean[] dirty;
+    private boolean[] dirty;
 
     String emptyString;
     byte[] emptyStringBytes;
@@ -179,7 +179,7 @@ public class PBTCache {
                 System.exit(-1);
             }
             //System.out.println("Freeing index: " + i.intValue());
-            if ( i.intValue() == numberOfBlocks-1 ) 
+            if ( i.intValue() == numberOfBlocks-1 )
                 --numberOfBlocks;
             else
                 freeBlocks.add(i);
@@ -249,7 +249,7 @@ public class PBTCache {
         // filling the rest of the block with -1
         for ( int i = node.links.size(); i < order; ++i )
             for ( int j = 0; j < 4; ++j )
-                bytes[(32*(order-1))+(4*i)+j] = negOneBytes[j]; 
+                bytes[(32*(order-1))+(4*i)+j] = negOneBytes[j];
 
         return bytes;
     }
